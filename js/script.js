@@ -17,8 +17,18 @@ if(data){
 function saveData(){
     localStorage.setItem("task", JSON.stringify(task));
 };
-function calculateHours(){
-     
+function calculateHours(element){
+    let hours = 0; 
+    for(let i = 0; i < 4; i++){
+        let some = "pair" + (i + 1);
+        if(element[some] == true){
+            hours += 2;
+        }
+    }
+    element.hours = hours;
+}
+function studentCount(){
+    number.textContent = "Кількість студентів: " + task.length;
 }
 
 function createRow(){
@@ -35,6 +45,7 @@ function createRow(){
             const td2 = document.createElement("td");
             const td3 = document.createElement("td");
             const td4 = document.createElement("td");
+            const tdHours = document.createElement("td");
 
             const check = [td1, td2, td3, td4];
             for(let i = 0; i < check.length; i++){
@@ -46,19 +57,59 @@ function createRow(){
 
             checkbox.addEventListener("change", function(){
                 element[some] = checkbox.checked;
+                calculateHours(element);
                 saveData();
+                renderTable();
             });
              check[i].append(checkbox);
-    };
-            
+            };
+            tdHours.textContent = element.hours;
 
-            tr.append(tdNumber, tdName, td1, td2, td3, td4);
+            const tdReason = document.createElement("td");
+            const select = document.createElement("select");
+           const reasons = ["Виберіть причину", "Поважна", "Неповажна"]
+            for(let i = 0; i < reasons.length; i++){
+                const opt = document.createElement("option");
+                opt.textContent = reasons[i];
+                select.append(opt);
+            };
+            tdReason.append(select);
+            select.value = element.reason;
+            select.addEventListener("change", function(){
+                element.reason = select.value;
+                saveData();
+            });
+
+            const tdNote = document.createElement("td");
+            const inp = document.createElement("input");
+            inp.type = "text";
+            inp.value = element.note;
+            inp.addEventListener("input", function(){
+                element.note = inp.value;
+                saveData();
+            })
+            tdNote.append(inp);
+
+            const tdAdd = document.createElement("input");
+            tdAdd.type = "file";
+
+            const tdDell = document.createElement("td");
+            const dell = document.createElement("button");
+            dell.textContent = "Видалити";
+            dell.addEventListener("click", function(){
+                task.splice(index, 1);
+                saveData();
+                renderTable();
+            });
+            tdDell.append(dell);
+
+            tr.append(tdNumber, tdName, td1, td2, td3, td4, tdHours, tdReason, tdNote, tdAdd, tdDell);
         })
     }
 function renderTable(){
     tbody.innerHTML = "";
     createRow();
-    
+    studentCount();
 }
 
 loadData();
@@ -90,4 +141,6 @@ add.addEventListener("click", function(event){
 
 clean.addEventListener("click", function(){
     localStorage.clear("task");
+    task = [];
+    renderTable();
 })
