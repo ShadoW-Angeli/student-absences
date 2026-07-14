@@ -1,0 +1,14 @@
+#window{
+    width: 200px;
+    height: 150px;
+    background-color:rgb(28, 69, 171);
+    padding: 5px;
+}
+#modal{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#modal.hidden{
+    display: none;
+}

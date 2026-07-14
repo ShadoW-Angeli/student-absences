@@ -1,9 +1,15 @@
 const student = document.getElementById("student");
 const add = document.getElementById("add");
 const number = document.getElementById("number");
-const table = document.getElementById("table");
 const tbody = document.getElementById("tbody");
 const clean = document.getElementById("clean");
+const modal = document.getElementById("modal");
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const saveChange = document.getElementById("saveChange");
+const edit = document.getElementById("edit");
+let deleteIndex = null;
+let editMode = false;
 let task;
 function loadData(){
 const data = JSON.parse(localStorage.getItem("task"));
@@ -50,6 +56,7 @@ function createRow(){
             const check = [td1, td2, td3, td4];
             for(let i = 0; i < check.length; i++){
             const checkbox = document.createElement("input");
+            checkbox.disabled = !editMode;
             checkbox.type = "checkbox";
 
             let some = "pair" + (i + 1);
@@ -67,10 +74,16 @@ function createRow(){
 
             const tdReason = document.createElement("td");
             const select = document.createElement("select");
+            select.disabled = !editMode;
            const reasons = ["Виберіть причину", "Поважна", "Неповажна"]
             for(let i = 0; i < reasons.length; i++){
                 const opt = document.createElement("option");
                 opt.textContent = reasons[i];
+                if(i === 0 ){
+                    opt.value = "";
+                } else{
+                    opt.value = reasons[i];
+                }
                 select.append(opt);
             };
             tdReason.append(select);
@@ -82,6 +95,7 @@ function createRow(){
 
             const tdNote = document.createElement("td");
             const inp = document.createElement("input");
+            inp.disabled = !editMode;
             inp.type = "text";
             inp.value = element.note;
             inp.addEventListener("input", function(){
@@ -95,22 +109,34 @@ function createRow(){
 
             const tdDell = document.createElement("td");
             const dell = document.createElement("button");
+            dell.disabled = !editMode;
             dell.textContent = "Видалити";
             dell.addEventListener("click", function(){
-                task.splice(index, 1);
-                saveData();
-                renderTable();
+                deleteIndex =  index;
+                modal.classList.remove("hidden");
             });
             tdDell.append(dell);
 
             tr.append(tdNumber, tdName, td1, td2, td3, td4, tdHours, tdReason, tdNote, tdAdd, tdDell);
         })
     }
+    editMode = true;
 function renderTable(){
     tbody.innerHTML = "";
     createRow();
     studentCount();
 }
+yes.addEventListener("click", function(){
+    task.splice(deleteIndex, 1);
+    deleteIndex = null;
+    saveData();
+    renderTable();
+     modal.classList.add("hidden");
+ });
+no.addEventListener("click", function(){
+    deleteIndex = null;
+    modal.classList.add("hidden");
+ });
 
 loadData();
 renderTable();
@@ -140,7 +166,16 @@ add.addEventListener("click", function(event){
 })
 
 clean.addEventListener("click", function(){
-    localStorage.clear("task");
+    localStorage.clear();
     task = [];
     renderTable();
 })
+
+saveChange.addEventListener("click", function(){
+    editMode = false;
+    renderTable();
+});
+edit.addEventListener("click", function(){
+    editMode = true;
+    renderTable();
+});
