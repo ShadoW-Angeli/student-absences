@@ -8,6 +8,7 @@ const yes = document.getElementById("yes");
 const no = document.getElementById("no");
 const saveChange = document.getElementById("saveChange");
 const edit = document.getElementById("edit");
+const sort = document.getElementById("sort");
 let deleteIndex = null;
 let editMode = false;
 let task;
@@ -32,11 +33,10 @@ function calculateHours(element){
         }
     }
     element.hours = hours;
-}
+};
 function studentCount(){
     number.textContent = "Кількість студентів: " + task.length;
-}
-
+};
 function createRow(){
         task.forEach(function(element, index){
             const tr = document.createElement("tr");
@@ -177,5 +177,13 @@ saveChange.addEventListener("click", function(){
 });
 edit.addEventListener("click", function(){
     editMode = true;
+    renderTable();
+});
+
+sort.addEventListener("click", function(){
+    task.sort(function(a, b){
+        return a.name.localeCompare(b.name);
+    });
+    saveData();
     renderTable();
 });
