@@ -11,7 +11,7 @@
     </head>
     <body>
         <h1>Число</h1>
-        <h2>Облік відсутніх</h2> <!--Чи щось таке-->
+        <h2 id="h">Облік відсутніх</h2> <!--Чи щось таке-->
         <form>
             <label>
                 ПІБ студента
@@ -21,27 +21,29 @@
         </form>
         <button id="clean">Oчистити</button>
         <h2 id="number">Кількість студентів:</h2>
-        <button id="saveChange">Зберегти зміни</button>
-        <button id="edit">Редагувати</button>
-        <button id="sort">Сортувати</button>
-        <table id="table">
+        <button id="saveChange" class="hidden button">Зберегти зміни</button>
+        <button id="edit" class="hidden button">Редагувати</button>
+        <button id="sort" class="button">Сортувати</button>
+        <div id="table">
+        <table>
             <thead>
             <tr>
-                <th>№</th>
-                <th>ПІБ</th>
-                <th>1 пара</th>
-                <th>2 пара</th>
-                <th>3 пара</th>
-                <th>4 пара</th>
-                <th>Години</th>
-                <th>Причина</th>
-                <th>Примітка</th>
-                <th>Додати файл</th>
-                <th>Видалити</th>
+                <th id="count">№</th>
+                <th id="name">ПІБ</th>
+                <th class="pairs">1 пара</th>
+                <th class="pairs">2 пара</th>
+                <th class="pairs">3 пара</th>
+                <th class="pairs">4 пара</th>
+                <th id="hours">Години</th>
+                <th id="reason">Причина</th>
+                <th id="note">Примітка</th>
+                <th id="file">Додати файл</th>
+                <th id="delet">Видалити</th>
             </tr>
             </thead>
             <tbody id="tbody"></tbody>
         </table>
+        </div>
         <div id="modal" class="hidden">
             <div id="window">
                 <h3 id="">Ви впевнені?</h3>

@@ -1,3 +1,138 @@
+body{
+    color: #3F3F3F;
+    background-color: #F8ECC2;
+}
+h1{
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 0;
+    margin-top: 16px;
+}
+#h{
+    text-align: center;
+    font-size: 24px;
+    margin: 16px;
+}
+#number{
+    font-size: 24px;
+}
+.button{
+    background-color: #B4CD93;
+    border: 0px;
+    border-radius: 8px;
+    width: 128px;
+    height: 32px;
+    font-size: 16px;
+}
+#saveChange.hidden{
+    display: none;
+}
+#edit.hidden{
+    display: none;
+}
+#table{
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+}
+#count{
+    width: 23px;
+    font-size: 20px;
+}
+#name{
+    width:160px;
+    font-size: 20px;
+}
+.pairs{
+    min-width: 65px;
+    max-width: 130px;
+    font-size: 20px;
+}
+#hours{
+    width: 65px;
+    font-size: 20px;
+}
+#reason{
+    width: 80px;
+    font-size: 20px;
+}
+#note{
+    width: 100px;
+    font-size: 20px;
+}
+#file{
+    width: 123px;
+    font-size: 20px;
+}
+#delet{
+    width:82px;
+    font-size: 20px;
+}
+td{
+    font-size: 18px;
+}
+.checkbox{
+    appearance: none;
+    -webkit-appearance: none;
+    height: 20px;
+    width: 20px;
+    cursor: pointer;
+    accent-color:#B4CD93 ;
+    background-color: #FDF6E3;
+    border: 2px, solid, #B4CD93;
+    border-radius: 5px;
+}
+.checkbox:checked{
+    background-color: #B4CD93;
+    background-image: url("../images/icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px;
+}
+.checkbox:disabled {
+    background-color: #d9d9d9;
+    opacity: 80%;
+    cursor: not-allowed;
+}
+.tdHour{
+    text-align: center;
+}
+select{
+    width: 80px;
+    background-color:#B4CD93 ;
+    border: 1px solid #a3ba85;
+    border-radius: 6px;
+    color: #3F3F3F;
+}
+.text{
+    width:100px;
+    background-color: #FDF6E3;
+    border: 1px solid #B4CD93;
+    border-radius: 6px;
+    color: #3F3F3F;
+    cursor: pointer;
+}
+.file{
+     display: inline-block;
+    background: #B4CD93;
+    width: 100px;
+    padding: 2px;
+    border-radius: 6px;
+    cursor: pointer;
+    text-align: center;
+    margin-left: 10px;
+}
+.file input{
+    display: none;
+}
+.delet{
+    background-color: #B4CD93;
+    border: 0px;
+    width: 82px;
+    border-radius: 8px;
+    padding: 3px;
+    margin-left: 5px;
+}
 #window{
     width: 200px;
     height: 150px;
