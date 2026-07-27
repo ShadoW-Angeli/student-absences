@@ -4,6 +4,7 @@
     --primary:#B4CD93;
     --primary_color:#3F3F3F;
     --primary_two:#A2C17D;
+    --color_dash: #DD0101;
 }
 .dark{
     --background-color: #242424;
@@ -11,45 +12,34 @@
     --primary:#437A58;
     --primary_color:#B4CD93;
     --primary_two:#376348;
+    --color_dash: #FFD21D;
 }
 body{
     color: var(--color);
     background-color: var(--background-color);
 }
-h1{
-    text-align: center;
-    font-size: 32px;
-    margin-bottom: 0;
-    margin-top: 16px;
-}
-.form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items:center;
-}
-.form form{
-    display: flex;
-    flex-direction: column;
-    margin:12px;
-}
-.inp{
+#dark{
     background-color: var(--primary);
-    border-color: var(--primary_two);
+    color: var(--primary_color);
+    border: 0px;
     border-radius: 8px;
-    padding: 4px;
-    border-style: solid;
-    margin-bottom: 16px;
-}
-#errors{
-    color:#DA0101;
-}
-label, span{
+    width: 32px;
+    height: 32px;
     font-size: 20px;
+    position: fixed;
+    top:20px;
+    right: 20px;
 }
-#check{
-    height: 18px;
-    width: 18px;
+#dark:hover{
+    background-color: var(--primary_two);
+}
+#dark:active{
+    background-color: var(--primary_two);
+    transform: scale(0.98);
+}
+#moon{
+    display: inline-block;
+    transition:transform .5s, opacity .5s;
 }
 .button{
     background-color: var(--primary);
@@ -60,7 +50,6 @@ label, span{
     height: 32px;
     font-size: 16px;
     transition: 0.2s;
-    margin:12px;
 }
 .button:hover{
     background-color: var(--primary_two);

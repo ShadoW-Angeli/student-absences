@@ -1,7 +1,6 @@
 const login = document.getElementById("login");
 const password = document.getElementById("password");
 const enter = document.getElementById("enter");
-const dark = document.getElementById("dark");
 const errors = document.getElementById("errors");
 
 enter.addEventListener("click", async (event)=> {
@@ -20,24 +19,16 @@ enter.addEventListener("click", async (event)=> {
     })
     .then(res => res.json())
     .then(data =>{
+        console.log(data);
         errors.textContent = data.message;
-            if(data.role === 1){
-                window.location.href = "../admin.html"
+            if(data.user.role === 1){
+                window.location.href = "../html/admin.html"
             } 
-             if(data.role === 2){
-                window.location.href = "../head.html"
+             if(data.user.role === 2){
+                window.location.href = "../html/head.html"
             } 
-            if(data.role === 3){
-                window.location.href = "../lead.html";
+            if(data.user.role === 3){
+                window.location.href = "../html/lead/head.html";
             }
     });
-});
-
-dark.addEventListener("click", function(){
-    document.body.classList.toggle("dark");
-    if(dark.textContent == "☼"){
-        dark.textContent = "☽";
-    } else {
-        dark.textContent = "☼";
-    }
 });
