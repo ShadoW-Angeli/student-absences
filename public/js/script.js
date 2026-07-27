@@ -9,11 +9,21 @@ const no = document.getElementById("no");
 const saveChange = document.getElementById("saveChange");
 const edit = document.getElementById("edit");
 const sort = document.getElementById("sort");
+const returns = document.getElementById("return");
+const dark = document.getElementById("dark");
+
 let deleteIndex = null;
 let editMode = false;
 let task;
 function loadData(){
-const data = JSON.parse(localStorage.getItem("task"));
+     fetch("/students")
+    .then(response =>{
+        return response.json();
+    })
+    .then(data =>{
+        console.log(data);
+    })
+//const data = JSON.parse(localStorage.getItem("task")); //було закоментоване
 if(data){
     task = data;
 } else {
@@ -22,7 +32,7 @@ if(data){
 };
 
 function saveData(){
-    localStorage.setItem("task", JSON.stringify(task));
+    /*localStorage.setItem("task", JSON.stringify(task));*/
 };
 function calculateHours(element){
     let hours = 0; 
@@ -77,7 +87,7 @@ function createRow(){
             const tdReason = document.createElement("td");
             const select = document.createElement("select");
             select.disabled = !editMode;
-           const reasons = ["Виберіть причину", "Поважна", "Неповажна"]
+           const reasons = ["Виберіть причину", "Поважна", "Непов."]
             for(let i = 0; i < reasons.length; i++){
                 const opt = document.createElement("option");
                 opt.textContent = reasons[i];
@@ -108,7 +118,7 @@ function createRow(){
             tdNote.append(inp);
 
             const label = document.createElement("label");
-            label.textContent = "Додати файл";
+            label.textContent = "Додати";
             label.classList.add("file");
             const tdAdd = document.createElement("input");
             tdAdd.type = "file";
@@ -190,6 +200,10 @@ edit.addEventListener("click", function(){
     renderTable();
    // saveChange.classList.remove("hidden");
    // edit.classList.add("hidden");
+});
+
+dark.addEventListener("click", function() {
+    document.body.classList.toggle("dark");
 });
 
 sort.addEventListener("click", function(){

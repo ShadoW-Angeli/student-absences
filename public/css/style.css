@@ -1,6 +1,20 @@
+:root{
+    --background-color: #F8ECC2;
+    --color:#3F3F3F;
+    --primary:#B4CD93;
+    --primary_color:#3F3F3F;
+    --primary_two:#A2C17D;
+}
+.dark{
+    --background-color: #242424;
+    --color: #F8ECC2;
+    --primary:#437A58;
+    --primary_color:#B4CD93;
+    --primary_two:#376348;
+}
 body{
-    color: #3F3F3F;
-    background-color: #F8ECC2;
+    color: var(--color);
+    background-color: var(--background-color);
 }
 h1{
     text-align: center;
@@ -17,12 +31,21 @@ h1{
     font-size: 24px;
 }
 .button{
-    background-color: #B4CD93;
+    background-color: var(--primary);
+    color: var(--primary_color);
     border: 0px;
     border-radius: 8px;
     width: 128px;
     height: 32px;
     font-size: 16px;
+    transition: 0.2s;
+}
+.button:hover{
+    background-color: var(--primary_two);
+}
+.button:active{
+    background-color: var(--primary_two);
+    transform: scale(0.98);
 }
 #saveChange.hidden{
     display: none;
@@ -99,24 +122,24 @@ td{
 }
 select{
     width: 80px;
-    background-color:#B4CD93 ;
+    background-color:var(--background-color) ;
     border: 1px solid #a3ba85;
     border-radius: 6px;
-    color: #3F3F3F;
+    color: var(--color);
 }
 .text{
     width:100px;
-    background-color: #FDF6E3;
+    background-color: var(--background-color);
     border: 1px solid #B4CD93;
     border-radius: 6px;
-    color: #3F3F3F;
+    color: var(--color);
     cursor: pointer;
 }
 .file{
      display: inline-block;
-    background: #B4CD93;
-    width: 100px;
-    padding: 2px;
+    background: var(--primary);
+    width: 92px;
+    padding: 1px;
     border-radius: 6px;
     cursor: pointer;
     text-align: center;
@@ -126,7 +149,7 @@ select{
     display: none;
 }
 .delet{
-    background-color: #B4CD93;
+    background-color: var(--primary);
     border: 0px;
     width: 82px;
     border-radius: 8px;
@@ -136,7 +159,7 @@ select{
 #window{
     width: 200px;
     height: 150px;
-    background-color:rgb(28, 69, 171);
+    background-color:#437A58;
     padding: 5px;
 }
 #modal{
