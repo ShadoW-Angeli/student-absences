@@ -1,6 +1,7 @@
 const dark = document.getElementById("dark");
 const moon = document.getElementById("moon");
 const theme = localStorage.getItem("theme");
+
 if(theme === "dark"){
     document.body.classList.add("dark");
     moon.textContent = "☼";
@@ -31,3 +32,18 @@ dark.addEventListener("click", function(){
     }, 20);
     }, 500);
 });
+
+const returns = document.getElementById("returns");
+if(returns){
+    returns.addEventListener("click", () =>{
+        console.log("hello");
+    window.history.back();
+});
+};
+
+const head = document.getElementById("head");
+if(head){
+    head.addEventListener("click", ()=>{
+        window.location.href = "../lead/head.html"
+    });
+};

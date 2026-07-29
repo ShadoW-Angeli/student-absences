@@ -1,0 +1,15 @@
+#export{
+    width: 184px;
+}
+#document{
+    width: 188px;
+}
+h3{
+    margin-top: 36px;
+    margin-bottom: -2px;
+}
+#flex{
+    display: flex;
+    justify-content: baseline;
+    gap: 40px;
+}

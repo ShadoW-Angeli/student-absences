@@ -7,22 +7,17 @@
         <meta name="keywords" content="">
         <meta name="author" content="shadow_evi">
         <title>День</title>
-        <link rel="stylesheet" href="../css/style.css">
-        <link rel="stylesheet" href="../css/theme.css">
+        <link rel="stylesheet" href="../../css/style.css">
+        <link rel="stylesheet" href="../../css/theme.css">
+        <link rel="stylesheet" href="../../css/modal.css">
     </head>
     <body>
-        <button id="return"><</button>
-        <button id="dark">☽</button>
+        <div id="top_bar"> 
+        <button id="returns" class="button"><</button>
+        <button id="dark"><span id="moon">☽</span></button>
+    </div>
         <h1>Число</h1>
         <h2 id="h">Облік відсутніх</h2> <!--Чи щось таке-->
-        <form>
-            <label>
-                ПІБ студента
-                <input type="text" id="student">
-            </label>
-            <button id="add">Додати</button>
-        </form>
-        <button id="clean">Oчистити</button>
         <h2 id="number">Кількість студентів:</h2>
         <button id="saveChange" class="hidden button">Зберегти зміни</button>
         <button id="edit" class="hidden button">Редагувати</button>
@@ -33,10 +28,10 @@
             <tr>
                 <th id="count">№</th>
                 <th id="name">ПІБ</th>
-                <th class="pairs">1 пара</th>
-                <th class="pairs">2 пара</th>
-                <th class="pairs">3 пара</th>
-                <th class="pairs">4 пара</th>
+                <th class="pairs">1 пара ▼</th>
+                <th class="pairs">2 пара ▼</th>
+                <th class="pairs">3 пара ▼</th>
+                <th class="pairs">4 пара ▼</th>
                 <th id="hours">Години</th>
                 <th id="reason">Причина</th>
                 <th id="note">Примітка</th>
@@ -47,6 +42,8 @@
             <tbody id="tbody"></tbody>
         </table>
         </div>
+         <button id="add" class="button">+</button>
+        <button id="clean" class="button">Oчистити</button>
         <div id="modal" class="hidden">
             <div id="window">
                 <h3 id="">Ви впевнені?</h3>
@@ -54,6 +51,6 @@
                 <button id="no">Ні</button>
             </div>
         </div>
-        <script src="../js/script.js"></script>
+        <script src="../../js/theme.js"></script>
     </body>
     </html>

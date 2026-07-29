@@ -1,0 +1,12 @@
+h2{
+    text-align: center;
+}
+#months{
+    width:906px;
+    height: 234px;
+}
+#month_report{
+    display: block;
+    margin: 25px auto 0;
+    width: 168px;
+}

@@ -26,7 +26,7 @@ router.post("/", async (req, res) =>{
     );
 
         if(!isMatch){
-            res.status(401).json({
+            return res.status(401).json({
                 success: false,
                  message: "Неправильний логін або пароль"
             });

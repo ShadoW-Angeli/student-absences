@@ -1,0 +1,27 @@
+h2{
+    text-align: center;
+}
+#flex{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+}
+#photo{
+    width: 180px;
+    height: 180px;
+    border-radius: 90px;
+    background-color: aliceblue;
+    margin-top: 24px;
+}
+#exit{
+    background-color: #BB6262;
+}
+#exit:hover{
+    background-color: #ad5959;
+    box-shadow: 6px 6px 16px 6px rgba(225, 30, 30, 0.445);
+}
+#exit:active{
+     background-color: #ad5959;
+}

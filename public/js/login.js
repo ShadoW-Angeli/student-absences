@@ -19,13 +19,14 @@ enter.addEventListener("click", async (event)=> {
     })
     .then(res => res.json())
     .then(data =>{
-        console.log(data);
+        localStorage.setItem("username", data.user.username);
+        
         errors.textContent = data.message;
             if(data.user.role === 1){
                 window.location.href = "../html/admin.html"
             } 
              if(data.user.role === 2){
-                window.location.href = "../html/head.html"
+                window.location.href = "../html/zav_vid/head.html"
             } 
             if(data.user.role === 3){
                 window.location.href = "../html/lead/head.html";

@@ -1,0 +1,20 @@
+h2{
+    text-align: center;
+}
+h2{
+    margin-bottom: 30px;
+}
+#months{
+    width:428px;
+    height:100px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:15px;
+     justify-items: center;
+     margin: 20px auto;
+}
+#semestr_report{
+    display: block;
+    margin: 25px auto 0;
+    width: 228px;
+}
