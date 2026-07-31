@@ -1,12 +1,61 @@
 h2{
     text-align: center;
 }
-#months{
-    width:906px;
-    height: 234px;
-}
 #month_report{
     display: block;
     margin: 25px auto 0;
     width: 168px;
+}
+#months{
+    display: flex;
+  flex-direction: column;
+}
+#btn_day{
+  gap: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.week{
+    display: grid;
+    grid-template-columns: 110px 1fr 180px;
+  align-items: center; 
+  gap: 16px; 
+  min-height: 40px;
+}
+.buttonD{
+    background-color: var(--primary);
+    color: var(--primary_color);
+    border: 0;
+    border-radius: 8px;
+    width: 56px;
+    height: 32px;
+    font-size: 16px;
+    transition: 0.2s;
+    margin: 12px;
+}
+.buttonD:hover{
+    background-color: var(--primary_two);
+}
+.buttonD:active{
+    background-color: var(--primary_two);
+    transform: scale(0.98);
+}
+
+.buttonReport{
+    background-color: var(--primary);
+    color: var(--primary_color);
+    border: 0;
+    border-radius: 8px;
+    width: 170px;
+    height: 32px;
+    font-size: 16px;
+    transition: 0.2s;
+    margin: 12px;
+}
+.buttonReport:hover{
+    background-color: var(--primary_two);
+}
+.buttonReport:active{
+    background-color: var(--primary_two);
+    transform: scale(0.98);
 }

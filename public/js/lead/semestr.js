@@ -25,6 +25,8 @@ if(semesterNumber){
 async function loadSemestr(number) {
     const res = await fetch(`/semestr/${number}`);
     const data = await res.json();
+    console.log(data);
+
     if(number == 1){
         semestr_number.textContent = "Перший семестр";
     } else {
@@ -34,6 +36,10 @@ async function loadSemestr(number) {
         const btn = document.createElement("button");
         btn.classList.add("button");
         btn.textContent = monthNames[month.month_number];
+        btn.dataset.id = month.id;
+        btn.addEventListener("click", ()=>{
+            window.location.href = `month.html?id=${month.id}`;
+        });
         months.append(btn);
     });
 }

@@ -16,7 +16,7 @@
         <button id="returns" class="button"><</button>
         <button id="dark"><span id="moon">☽</span></button>
     </div>
-        <h1>Число</h1>
+        <h1 id="days"></h1>
         <h2 id="h">Облік відсутніх</h2> <!--Чи щось таке-->
         <h2 id="number">Кількість студентів:</h2>
         <button id="saveChange" class="hidden button">Зберегти зміни</button>
@@ -28,10 +28,10 @@
             <tr>
                 <th id="count">№</th>
                 <th id="name">ПІБ</th>
-                <th class="pairs">1 пара ▼</th>
-                <th class="pairs">2 пара ▼</th>
-                <th class="pairs">3 пара ▼</th>
-                <th class="pairs">4 пара ▼</th>
+                <th id="one" class="pairs">1 пара ▼</th>
+                <th id="two" class="pairs">2 пара ▼</th>
+                <th id="three" class="pairs">3 пара ▼</th>
+                <th id="four"class="pairs">4 пара ▼</th>
                 <th id="hours">Години</th>
                 <th id="reason">Причина</th>
                 <th id="note">Примітка</th>
@@ -51,6 +51,8 @@
                 <button id="no">Ні</button>
             </div>
         </div>
+        <script type="module" src="../../js/lead/day-rapotr.js"></script>
         <script src="../../js/theme.js"></script>
+        <script src="../../js/nav.js"></script>
     </body>
     </html>

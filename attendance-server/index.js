@@ -19,4 +19,16 @@ app.use("/year", yearRouter);
 
 const semestrRouter = require("./routes/semestr");
 app.use("/semestr", semestrRouter);
+
+const groupRouter = require("./routes/group");
+app.use("/group", groupRouter);
+
+const profRouter = require("./routes/profile");
+app.use("/profile", profRouter);
+
+const monthRouter = require("./routes/month");
+app.use("/month", monthRouter);
+
+const dayRouter = require("./routes/day");
+app.use("/day", dayRouter);
 app.listen(3000);

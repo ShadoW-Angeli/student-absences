@@ -19,7 +19,7 @@
 }
 .pairs{
     min-width: 65px;
-    max-width: 130px;
+    max-width: 160px;
     font-size: 20px;
 }
 #hours{
@@ -44,6 +44,7 @@
 }
 td{
     font-size: 18px;
+    margin: 0 auto;
 }
 .checkbox{
     appearance: none;
@@ -55,6 +56,8 @@ td{
     background-color: #FDF6E3;
     border: 2px, solid, #B4CD93;
     border-radius: 5px;
+    display: block;
+    margin: 0 auto;
 }
 .checkbox:checked{
     background-color: #B4CD93;
@@ -73,14 +76,14 @@ td{
 }
 select{
     width: 80px;
-    background-color:var(--background-color) ;
+    background-color:var(--primary);
     border: 1px solid #a3ba85;
     border-radius: 6px;
     color: var(--color);
 }
 .text{
     width:100px;
-    background-color: var(--background-color);
+    background-color: var(--primary);
     border: 1px solid #B4CD93;
     border-radius: 6px;
     color: var(--color);
@@ -90,7 +93,7 @@ select{
      display: inline-block;
     background: var(--primary);
     width: 92px;
-    padding: 1px;
+    padding: 3px;
     border-radius: 6px;
     cursor: pointer;
     text-align: center;

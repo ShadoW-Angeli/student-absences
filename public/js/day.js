@@ -1,107 +1,111 @@
 const tbody = document.getElementById("tbody");
+const headers = document.querySelectorAll(".pairs");
 
-function createRow(){
-        task.forEach(function(element, index){
+function createRow(students, schedule){
+    schedule.forEach(function(lesson, index){
+        headers[index].textContent = lesson.subject_name;
+    });
+        students.forEach(function(student, index){
             const tr = document.createElement("tr");
             tbody.append(tr);
 
             const tdNumber = document.createElement("td");
             tdNumber.textContent = index + 1;
             const tdName = document.createElement("td");
-            tdName.textContent = element.name;
+            tdName.textContent = student.surname + " " + student.name;
 
-            const td1 = document.createElement("td");
-            const td2 = document.createElement("td");
-            const td3 = document.createElement("td");
-            const td4 = document.createElement("td");
+            const tdLessons = [];
+
+            for(let i = 0; i < 4; i++){
+                const td = document.createElement("td");
+                if(i < schedule.length){
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                 checkbox.classList.add("checkbox");
+
+                checkbox.addEventListener("change", () => {
+                    calculateHours();
+                });
+
+                 td.append(checkbox);
+                }
+                 tdLessons.push(td);
+            }
+
             const tdHours = document.createElement("td");
             tdHours.classList.add("tdHour");
+            tdHours.textContent = 0;
 
-            const check = [td1, td2, td3, td4];
-            for(let i = 0; i < check.length; i++){
-            const checkbox = document.createElement("input");
-            checkbox.disabled = !editMode;
-            checkbox.type = "checkbox";
-            checkbox.classList.add("checkbox");
-
-            let some = "pair" + (i + 1);
-            checkbox.checked = element[some];
-
-            checkbox.addEventListener("change", function(){
-                element[some] = checkbox.checked;
-                calculateHours(element);
-                saveData();
-                renderTable();
-            });
-             check[i].append(checkbox);
-            };
-            tdHours.textContent = element.hours;
+            function calculateHours() {
+                let hours = 0;
+                tdLessons.forEach(td => {
+                    const checkbox = td.querySelector("input");
+                    if (checkbox && checkbox.checked) {
+                        hours += 2;
+                    }
+                });
+                
+                tdHours.textContent = hours;
+            }
 
             const tdReason = document.createElement("td");
             const select = document.createElement("select");
-            select.disabled = !editMode;
-           const reasons = ["Виберіть причину", "Поважна", "Непов."]
-            for(let i = 0; i < reasons.length; i++){
+
+            const reason = [
+                {vslue: "", text: "Виберіть причину"},
+                {value:"true", text: "Поважна"},
+                {value: "false", text: "Неповажна"}
+            ];
+            reason.forEach(reason =>{
                 const opt = document.createElement("option");
-                opt.textContent = reasons[i];
-                if(i === 0 ){
-                    opt.value = "";
-                } else{
-                    opt.value = reasons[i];
-                }
+                opt.value = reason.value;
+                opt.textContent = reason.text;
                 select.append(opt);
-            };
+            });
             tdReason.append(select);
-            select.value = element.reason;
+
             select.addEventListener("change", function(){
-                element.reason = select.value;
-                saveData();
+                console.log(student.id, select.value);
             });
 
             const tdNote = document.createElement("td");
             const inp = document.createElement("input");
             inp.classList.add("text");
-            inp.disabled = !editMode;
             inp.type = "text";
-            inp.value = element.note;
-            inp.addEventListener("input", function(){
-                element.note = inp.value;
-                saveData();
-            })
             tdNote.append(inp);
 
+            inp.addEventListener("change", function(){
+                console.log(student.id, inp.value);
+            })
+
+            const tdAdd = document.createElement("td")
             const label = document.createElement("label");
-            label.textContent = "Додати";
             label.classList.add("file");
-            const tdAdd = document.createElement("input");
-            tdAdd.type = "file";
+
+            const text = document.createElement("span");
+            text.textContent = "Додати";
+
+            const inputFile = document.createElement("input");
+            inputFile.type = "file";
+            label.append(inputFile, text);
             label.append(tdAdd);
 
+            inputFile.addEventListener("change", ()=>{
+                console.log(inputFile.files[0]);
+                text.textContent = "Змінити";
+            });
+            
             const tdDell = document.createElement("td");
             const dell = document.createElement("button");
-            dell.classList.add("delet");
-            dell.disabled = !editMode;
+            dell.classList.add("button");
             dell.textContent = "Видалити";
-            dell.addEventListener("click", function(){
-                deleteIndex =  index;
-                modal.classList.remove("hidden");
-            });
             tdDell.append(dell);
 
-            tr.append(tdNumber, tdName, td1, td2, td3, td4, tdHours, tdReason, tdNote, label, tdDell);
+            dell.addEventListener("click", () => {
+                console.log(student.id);
+            });
+            tr.append(tdNumber, tdName, ...tdLessons, tdHours, tdReason, tdNote, label, tdDell);
         })
     };
 
-    function calculateHours(element){
-    let hours = 0; 
-    for(let i = 0; i < 4; i++){
-        let some = "pair" + (i + 1);
-        if(element[some] == true){
-            hours += 2;
-        }
-    }
-    element.hours = hours;
-};
-
-export function createRow(){};
-export function calculateHours(){};
+export { createRow };

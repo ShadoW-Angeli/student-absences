@@ -25,3 +25,10 @@ h2{
 #exit:active{
      background-color: #ad5959;
 }
+#add_photo{
+    margin-bottom: -20px;
+}
+#info{
+    margin-top: -25px;
+    font-size: 18px;
+}

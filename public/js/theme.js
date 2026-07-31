@@ -40,10 +40,3 @@ if(returns){
     window.history.back();
 });
 };
-
-const head = document.getElementById("head");
-if(head){
-    head.addEventListener("click", ()=>{
-        window.location.href = "../lead/head.html"
-    });
-};
