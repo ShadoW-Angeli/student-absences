@@ -31,4 +31,7 @@ app.use("/month", monthRouter);
 
 const dayRouter = require("./routes/day");
 app.use("/day", dayRouter);
+
+const absenceRouter = require("./routes/absence");
+app.use("/absence", absenceRouter);
 app.listen(3000);
