@@ -12,9 +12,10 @@ async function dayRender() {
     const data = await res.json();
     console.log(data);
 
-    const { day, students, schedule } = data;
-    createRow(students, schedule);
+    const { day, students, schedule, absences } = data;
+    createRow(day, students, schedule, absences);
 }
 dayRender();
 
 import{ createRow } from "../day.js"; 
+export { dayRender };

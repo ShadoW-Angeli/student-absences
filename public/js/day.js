@@ -1,7 +1,7 @@
 const tbody = document.getElementById("tbody");
 const headers = document.querySelectorAll(".pairs");
 
-function createRow(students, schedule){
+function createRow(day, students, schedule, absences){
     schedule.forEach(function(lesson, index){
         headers[index].textContent = lesson.subject_name;
     });
@@ -19,22 +19,53 @@ function createRow(students, schedule){
             for(let i = 0; i < 4; i++){
                 const td = document.createElement("td");
                 if(i < schedule.length){
+                    const lesson = schedule[i];
+
+                    const absence = absences.find(a =>
+                   a.student_id === student.id &&
+                   a.day_schedule_id === lesson.id
+                ); 
+
                 const checkbox = document.createElement("input");
                 checkbox.type = "checkbox";
                  checkbox.classList.add("checkbox");
 
-                checkbox.addEventListener("change", () => {
+                  checkbox.checked = !!absence;
+
+                checkbox.addEventListener("change", async () => {
+                    if(checkbox.checked){
+                        await fetch("/absence", {
+                            method: "POST", 
+                            headers: {
+                                "Content-Type" : "application/json"
+                            }, 
+                            body: JSON.stringify({
+                                studentId: student.id,
+                                dayScheduleId: lesson.id
+                            })
+                        });
+                    } else{
+                        await fetch("/absence", {
+                            method: "DELETE", 
+                            headers: {
+                                "Content-Type" : "application/json"
+                            }, 
+                            body: JSON.stringify({
+                                studentId: student.id,
+                                dayScheduleId: lesson.id
+                            })
+                        });
+                    }
                     calculateHours();
                 });
 
                  td.append(checkbox);
                 }
                  tdLessons.push(td);
-            }
+            } 
 
             const tdHours = document.createElement("td");
             tdHours.classList.add("tdHour");
-            tdHours.textContent = 0;
 
             function calculateHours() {
                 let hours = 0;
@@ -46,13 +77,14 @@ function createRow(students, schedule){
                 });
                 
                 tdHours.textContent = hours;
-            }
+            } calculateHours();
 
+            const studentAbs = absences.find(a => a.student_id ===  student.id);
             const tdReason = document.createElement("td");
             const select = document.createElement("select");
 
             const reason = [
-                {vslue: "", text: "Виберіть причину"},
+                {value: "", text: "Виберіть причину"},
                 {value:"true", text: "Поважна"},
                 {value: "false", text: "Неповажна"}
             ];
@@ -78,6 +110,11 @@ function createRow(students, schedule){
                 console.log(student.id, inp.value);
             })
 
+            if(studentAbs){
+                select.value = String(studentAbs.is_valid_reason);
+                inp.value = studentAbs.note ?? "";
+            }
+
             const tdAdd = document.createElement("td")
             const label = document.createElement("label");
             label.classList.add("file");
@@ -101,11 +138,19 @@ function createRow(students, schedule){
             dell.textContent = "Видалити";
             tdDell.append(dell);
 
-            dell.addEventListener("click", () => {
+            dell.addEventListener("click", async () => {
                 console.log(student.id);
+                const res = await fetch(`/absence/${student.id}/${day.id}`, {
+                    method: "DELETE"
+                });
+                const data = await res.json();
+                console.log(data);
+                tbody.innerHTML = "";
+                dayRender();
             });
             tr.append(tdNumber, tdName, ...tdLessons, tdHours, tdReason, tdNote, label, tdDell);
         })
     };
 
+    import { dayRender } from "./lead/day-rapotr.js";
 export { createRow };

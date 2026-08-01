@@ -75,7 +75,7 @@ td{
     text-align: center;
 }
 select{
-    width: 80px;
+    width: 100px;
     background-color:var(--primary);
     border: 1px solid #a3ba85;
     border-radius: 6px;
