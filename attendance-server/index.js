@@ -5,6 +5,8 @@ const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "..", "public")));
 
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 const studRouter = require("./routes/students");
 app.use("/students", studRouter);
 
@@ -34,4 +36,7 @@ app.use("/day", dayRouter);
 
 const absenceRouter = require("./routes/absence");
 app.use("/absence", absenceRouter);
+
+const documentsRouter = require("./routes/document");
+app.use("/documents", documentsRouter);
 app.listen(3000);

@@ -20,6 +20,7 @@ enter.addEventListener("click", async (event)=> {
     .then(res => res.json())
     .then(data =>{
         localStorage.setItem("username", data.user.username);
+        localStorage.setItem("userId", data.user.userId);
         
         errors.textContent = data.message;
             if(data.user.role === 1){

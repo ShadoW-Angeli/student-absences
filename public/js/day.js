@@ -1,18 +1,18 @@
 const tbody = document.getElementById("tbody");
-const headers = document.querySelectorAll(".pairs");
+const spans = document.querySelectorAll(".pairs");
 
-function createRow(day, students, schedule, absences){
+function createRow(day, students, schedule, absences, documents){
+
     schedule.forEach(function(lesson, index){
-        headers[index].textContent = lesson.subject_name;
+        spans[index].textContent = lesson.subject_name;
     });
         students.forEach(function(student, index){
             const tr = document.createElement("tr");
             tbody.append(tr);
 
             const tdNumber = document.createElement("td");
-            tdNumber.textContent = index + 1;
             const tdName = document.createElement("td");
-            tdName.textContent = student.surname + " " + student.name;
+            //tdName.textContent = student.surname + " " + student.name;
 
             const tdLessons = [];
 
@@ -88,6 +88,7 @@ function createRow(day, students, schedule, absences){
                 {value:"true", text: "Поважна"},
                 {value: "false", text: "Неповажна"}
             ];
+
             reason.forEach(reason =>{
                 const opt = document.createElement("option");
                 opt.value = reason.value;
@@ -96,8 +97,23 @@ function createRow(day, students, schedule, absences){
             });
             tdReason.append(select);
 
-            select.addEventListener("change", function(){
-                console.log(student.id, select.value);
+            select.addEventListener("change", async () =>{
+                const value = 
+                select.value === "" 
+                ? null 
+                :select.value === true;
+
+                await fetch("/absence/reason", {
+                    method: "PATCH", 
+                    headers: {
+                    "Content-Type" : "application/json"
+                     }, 
+                     body: JSON.stringify({
+                        studentId: student.id,
+                        dayId: day.id,
+                        isValidReason: value
+                     })
+                })
             });
 
             const tdNote = document.createElement("td");
@@ -106,9 +122,20 @@ function createRow(day, students, schedule, absences){
             inp.type = "text";
             tdNote.append(inp);
 
-            inp.addEventListener("change", function(){
+            inp.addEventListener("change", async () =>{
                 console.log(student.id, inp.value);
-            })
+                await fetch("/absence/note", {
+                    method: "PATCH",
+                    headers: {
+                    "Content-Type" : "application/json"
+                     }, 
+                     body: JSON.stringify({
+                        studentId: student.id,
+                        dayId: day.id,
+                        note: inp.value
+                     })
+                })
+            });
 
             if(studentAbs){
                 select.value = String(studentAbs.is_valid_reason);
@@ -127,10 +154,26 @@ function createRow(day, students, schedule, absences){
             label.append(inputFile, text);
             label.append(tdAdd);
 
-            inputFile.addEventListener("change", ()=>{
+            inputFile.addEventListener("change", async ()=>{
                 console.log(inputFile.files[0]);
-                text.textContent = "Змінити";
+                
+                const formData = new FormData();
+
+                formData.append("file", inputFile.files[0]);
+                formData.append("studentId", student.id);
+                formData.append("dayId", day.id);
+                const res = await fetch("/absence/file", {
+                    method: "POST",
+                    body: formData
+                })
+                 
             });
+
+            if(documents.length > 0){
+                    text.textContent = "Змінити"
+                 } else{
+                    text.textContent = "Додати"
+                 };
             
             const tdDell = document.createElement("td");
             const dell = document.createElement("button");
@@ -149,8 +192,130 @@ function createRow(day, students, schedule, absences){
                 dayRender();
             });
             tr.append(tdNumber, tdName, ...tdLessons, tdHours, tdReason, tdNote, label, tdDell);
-        })
+        });
+        subject(day.id);
     };
 
+    function createEmpty(day){
+    const tr = document.createElement("tr");
+
+    const tdNumber = document.createElement("td");
+    tdNumber.textContent = tbody.children.length + 1;
+
+    const tdName = document.createElement("td");
+
+    const input = document.createElement("input");
+    input.type = "text";
+    input.classList.add("student_input");
+
+    input.addEventListener("input", async()=>{
+        const userId = localStorage.getItem("userId");
+
+       const res = await fetch(`/students?q=${input.value}&userId=${userId}`);
+       const data = await res.json();
+       console.log(data);
+    });
+
+    tdName.append(input);
+
+    const tdLessons = [];
+
+    for (let i = 0; i < 4; i++) {
+        const td = document.createElement("td");
+        tdLessons.push(td);
+    }
+
+    const tdHours = document.createElement("td");
+
+    const tdReason = document.createElement("td");
+
+    const tdNote = document.createElement("td");
+
+    const tdFile = document.createElement("td");
+
+    const tdDelete = document.createElement("td");
+
+    tr.append(
+        tdNumber,
+        tdName,
+        ...tdLessons,
+        tdHours,
+        tdReason,
+        tdNote,
+        tdFile,
+        tdDelete
+    );
+
+    tbody.append(tr);
+    }
+
+    function subject(dayId){
+
+        spans.forEach((span, index) =>{
+            const lessonNumber = index + 1;
+
+            span.addEventListener("click", ()=>{
+            const input = document.createElement("input");
+            input.type = "text";
+            input.classList.add("subject_input");
+
+            span.replaceWith(input);
+            input.focus();
+
+            input.addEventListener("input", async ()=> {
+                const res = await fetch(`/subject?q=${input.value}`);
+                const data = await res.json();
+                renderSub(data, input, dayId, lessonNumber);
+            })
+        });
+        });
+    }
+
+   async function renderSub(data, input, dayId, lessonNumber){
+        let list = input.parentElement.querySelector(".sub_list");
+
+        if(!list){
+            list = document.createElement("div");
+            list.classList.add("sub_list");
+            input.after(list);
+        }
+        
+        list.innerHTML = "";
+
+        data.forEach(subject =>{
+            const item = document.createElement("div");
+            item.textContent = subject.subject_name;
+
+            item.addEventListener("click", async ()=>{
+
+                console.log({
+                    attendanceDayId: dayId,
+                            lessonNumber: lessonNumber,
+                            subjectId: subject.id
+                });
+                await fetch("/subject/schedule", {
+                        method: "POST", 
+                        headers: {
+                            "Content-Type": "application/json"
+                        }, 
+                        body: JSON.stringify({
+                            attendanceDayId: dayId,
+                            lessonNumber: lessonNumber,
+                            subjectId: subject.id
+                        })
+                    })
+
+                const span = document.createElement("span");
+                span.classList.add("pairs");
+                span.textContent = subject.subject_name;
+
+                input.replaceWith(span);
+                list.remove();
+            })
+
+            list.append(item);
+        })
+    }
+
     import { dayRender } from "./lead/day-rapotr.js";
-export { createRow };
+export { createRow, renderSub, createEmpty };

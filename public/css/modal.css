@@ -1,8 +1,9 @@
 #window{
-    width: 200px;
-    height: 150px;
+    min-width: 380px;
+    min-height: 232px;
     background-color:#437A58;
     padding: 5px;
+    border-radius: 40px;
 }
 #modal{
     display: flex;
@@ -11,4 +12,8 @@
 }
 #modal.hidden{
     display: none;
+}
+.photo{
+    width:180px;
+    height: 200px;
 }
